@@ -1,0 +1,214 @@
+/* Whole page */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #222;
+}
+
+
+/* Navigation */
+nav {
+    background-color: #1f2937;
+    padding: 18px 50px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #60a5fa;
+}
+
+
+/* Main content */
+.container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 25px;
+}
+
+
+/* Welcome section */
+.hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #666;
+    font-size: 18px;
+}
+
+
+/* Instruction */
+.instruction {
+    background-color: white;
+    border-left: 4px solid #2563eb;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+
+/* Project cards */
+.works {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.work-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: 0.2s;
+}
+
+.work-card:hover {
+    transform: translateY(-5px);
+}
+
+.work-card h3 {
+    margin-top: 0;
+}
+
+.work-card p {
+    color: #666;
+}
+
+.work-card a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 16px;
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.work-card a:hover {
+    background-color: #1d4ed8;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background-color: #1f2937;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.back-button:hover {
+    background-color: #374151;
+}
+
+/* Profile page */
+
+.profile-card {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.profile-card h2 {
+    margin-top: 0;
+    color: #1f2937;
+}
+
+.profile-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.motto {
+    text-align: center;
+    border-left: 4px solid #2563eb;
+}
+
+.motto p {
+    font-style: italic;
+    font-size: 18px;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.contact-icons a {
+    width: 130px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    color: cyan;
+
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    border-radius: 12px;
+
+    background: rgba(0, 10, 20, 0.7);
+
+    transition: 0.3s;
+}
+
+.contact-icons a:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 20px cyan;
+    border-color: cyan;
+}
+
+.contact-icons img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+.work-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #800000;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.work-button:hover {
+    background-color: #a00000;
+    transform: translateY(-2px);
+}
+
+.contact-icons small {
+    display: block;
+    margin-top: 8px;
+    color: white;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}

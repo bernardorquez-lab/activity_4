@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+Uppercase Converter
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <h1>UPPERCASE CONVERTER</h1>
+
+    <form action="/works/uppercase" method="post">
+
+        <label for="inputString">
+            Enter text:
+        </label>
+
+        <br>
+
+        <input
+            type="text"
+            id="inputString"
+            name="inputString"
+        >
+
+        <br>
+
+        <input type="submit" value="CONVERT">
+
+    </form>
+
+    {% if result %}
+        <p>Result: {{ result }}</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

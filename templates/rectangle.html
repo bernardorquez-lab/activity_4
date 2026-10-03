@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Rectangle Area
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <h1>AREA OF RECTANGLE</h1>
+
+    <p>System // Ready</p>
+
+    <form action="/works/area/rectangle" method="post">
+
+        <label for="length">
+            Enter the length:
+        </label>
+
+        <br>
+
+        <input
+            type="text"
+            id="length"
+            name="length"
+        >
+
+        <br>
+
+        <label for="width">
+            Enter the width:
+        </label>
+
+        <br>
+
+        <input
+            type="text"
+            id="width"
+            name="width"
+        >
+
+        <br>
+
+        <input type="submit" value="COMPUTE">
+
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if result %}
+        <p>Area of the rectangle: {{ result }}</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

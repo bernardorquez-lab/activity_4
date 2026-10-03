@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Circle Area
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <h1>AREA OF CIRCLE</h1>
+
+    <form action="/works/area/circle" method="post">
+
+        <label for="radius">
+            Enter the radius:
+        </label>
+
+        <br>
+
+        <input
+            type="text"
+            id="radius"
+            name="radius"
+        >
+
+        <br>
+
+        <input type="submit" value="COMPUTE">
+
+    </form>
+
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    {% if result %}
+        <p>Area of the circle: {{ result }}</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

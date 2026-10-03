@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}CPE Website{% endblock %}</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow-x: hidden;
+            background: #02040a;
+        }
+
+        /* DIGITAL BACKGROUND */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+
+            background:
+                linear-gradient(rgba(0, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.04) 1px, transparent 1px);
+
+            background-size: 40px 40px;
+        }
+
+        /* GLOWING LIGHTS */
+        .glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+        }
+
+        .glow1 {
+            background: cyan;
+            top: 10%;
+            left: 10%;
+        }
+
+        .glow2 {
+            background: blue;
+            bottom: 10%;
+            right: 10%;
+        }
+
+        /* CIRCUIT LINES */
+        .line {
+            position: fixed;
+            background: rgba(0, 255, 255, 0.25);
+            box-shadow: 0 0 10px cyan;
+        }
+
+        .line1 {
+            width: 300px;
+            height: 2px;
+            top: 20%;
+            left: 0;
+        }
+
+        .line2 {
+            width: 2px;
+            height: 250px;
+            top: 20%;
+            left: 300px;
+        }
+
+        .line3 {
+            width: 250px;
+            height: 2px;
+            bottom: 20%;
+            right: 0;
+        }
+
+        .line4 {
+            width: 2px;
+            height: 200px;
+            bottom: 20%;
+            right: 250px;
+        }
+
+        .line5 {
+            width: 150px;
+            height: 2px;
+            top: 70%;
+            left: 5%;
+        }
+
+        .line6 {
+            width: 2px;
+            height: 150px;
+            top: 70%;
+            left: 155px;
+        }
+
+        /* CIRCUIT NODES */
+        .node {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: cyan;
+            box-shadow: 0 0 15px cyan;
+        }
+
+        .node1 {
+            top: 20%;
+            left: 295px;
+        }
+
+        .node2 {
+            bottom: 20%;
+            right: 245px;
+        }
+
+        .node3 {
+            top: 70%;
+            left: 150px;
+        }
+
+        /* BACKGROUND BINARY */
+        .binary {
+            position: fixed;
+            color: rgba(0, 255, 255, 0.18);
+            font-size: 18px;
+            font-family: monospace;
+            z-index: -1;
+            animation: floatBinary 8s infinite linear;
+        }
+
+        .b1 {
+            top: 10%;
+            left: 20%;
+        }
+
+        .b2 {
+            top: 30%;
+            right: 15%;
+        }
+
+        .b3 {
+            top: 60%;
+            left: 10%;
+        }
+
+        .b4 {
+            bottom: 15%;
+            right: 25%;
+        }
+
+        .b5 {
+            top: 45%;
+            left: 40%;
+        }
+
+        .b6 {
+            bottom: 30%;
+            left: 70%;
+        }
+
+        .b7 {
+            top: 15%;
+            right: 40%;
+        }
+
+        .b8 {
+            bottom: 10%;
+            left: 30%;
+        }
+
+        @keyframes floatBinary {
+            0% {
+                transform: translateY(0);
+                opacity: 0.15;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-40px);
+                opacity: 0.15;
+            }
+        }
+
+        /* MOUSE BINARY */
+        #mouse-binary span {
+            position: fixed;
+            color: cyan;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 16px;
+            pointer-events: none;
+            text-shadow: 0 0 10px cyan;
+
+            animation: mouseBinary 1s linear forwards;
+        }
+
+        @keyframes mouseBinary {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) scale(1.5);
+            }
+        }
+
+        /* PAGE CONTENT */
+        .page-content {
+            position: relative;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        /* SIMPLE NAVIGATION */
+        nav {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        nav a {
+            color: cyan;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-shadow: 0 0 10px cyan;
+        }
+
+        /* CONTENT CARD */
+        .content-card {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+
+            background: rgba(0, 10, 20, 0.85);
+            border: 1px solid cyan;
+            border-radius: 15px;
+
+            box-shadow:
+                0 0 20px rgba(0, 255, 255, 0.2),
+                inset 0 0 20px rgba(0, 255, 255, 0.05);
+        }
+
+        h1 {
+            color: cyan;
+            text-shadow: 0 0 10px cyan;
+        }
+
+        input {
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid cyan;
+            background: #050b12;
+            color: white;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background: transparent;
+            color: cyan;
+            border: 1px solid cyan;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background: cyan;
+            color: black;
+            box-shadow: 0 0 15px cyan;
+        }
+        .work-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: transparent;
+            color: cyan;
+            border: 1px solid cyan;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .work-button:hover {
+            background: cyan;
+            color: black;
+            box-shadow: 0 0 15px cyan;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- DIGITAL BACKGROUND -->
+    <div class="background">
+
+        <div class="glow glow1"></div>
+        <div class="glow glow2"></div>
+
+        <div class="line line1"></div>
+        <div class="line line2"></div>
+        <div class="line line3"></div>
+        <div class="line line4"></div>
+        <div class="line line5"></div>
+        <div class="line line6"></div>
+
+        <div class="node node1"></div>
+        <div class="node node2"></div>
+        <div class="node node3"></div>
+
+        <div class="binary b1">01001001</div>
+        <div class="binary b2">101101</div>
+        <div class="binary b3">01101001</div>
+        <div class="binary b4">110010</div>
+        <div class="binary b5">01011010</div>
+        <div class="binary b6">10101</div>
+        <div class="binary b7">001101</div>
+        <div class="binary b8">11010101</div>
+
+    </div>
+
+    <!-- MOUSE BINARY -->
+    <div id="mouse-binary"></div>
+
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/profile">PROFILE</a>
+            <a href="/works">WORKS</a>
+            <a href="/contact">CONTACT</a>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener("mousemove", function(event) {
+
+            const binary = document.createElement("span");
+
+            if (Math.random() < 0.5) {
+                binary.textContent = "0";
+            } else {
+                binary.textContent = "1";
+            }
+
+            binary.style.left = event.clientX + "px";
+            binary.style.top = event.clientY + "px";
+
+            document
+                .getElementById("mouse-binary")
+                .appendChild(binary);
+
+            setTimeout(function() {
+                binary.remove();
+            }, 1000);
+
+        });
+    </script>
+
+</body>
+</html>
+```
