@@ -1,52 +1,81 @@
 {% extends "base.html" %}
 
 {% block title %}
-Home
+Bernard Orquez | Portfolio
 {% endblock %}
 
 {% block content %}
 
-<div class="home-card">
+<section class="hero-wrap">
 
-    <p class="welcome-text">WELCOME TO MY WEBSITE</p>
-
-    <h1>Hi, I'm Bernard Orquez</h1>
-
-    <h2>Computer Engineering Student</h2>
-
-    <p class="intro">
-        I'm a 2nd Year Computer Engineering student interested in
-        programming, computer networking, and technology.
-        This website showcases some of my projects, activities,
-        and what I am currently learning.
-    </p>
-
-    <div class="home-buttons">
-        <a href="/profile" class="work-button">View My Profile</a>
-        <a href="/works" class="work-button">Explore My Works →</a>
+    <div>
+        <p class="eyebrow">Hello, I'm</p>
+        <h1 class="hero-title gradient-text">Bernard Orquez</h1>
+        <p class="typing" id="typing"></p>
+        <p class="hero-text">
+            2nd year Computer Engineering student building simple, working
+            applications with Python and Flask, and learning how computer
+            networks talk to each other.
+        </p>
+        <div class="btn-row">
+            <a href="/works" class="work-button btn-solid">View my works</a>
+            <a href="/contact" class="work-button">Contact me</a>
+        </div>
     </div>
 
-    <hr>
+    <div class="terminal">
+        <div class="terminal-bar"><i></i><i></i><i></i></div>
+<pre><b>$</b> who_am_i
+bernard_orquez
 
-    <div class="interests">
+<b>$</b> course
+Computer Engineering, 2nd year
 
-        <div class="interest-box">
-            <h3>💻 Programming</h3>
-            <p>Python, Flask, HTML & CSS</p>
-        </div>
+<b>$</b> focus
+networking, python, flask
 
-        <div class="interest-box">
-            <h3>🌐 Networking</h3>
-            <p>Computer networks and infrastructure</p>
-        </div>
-
-        <div class="interest-box">
-            <h3>⚡ Engineering</h3>
-            <p>Computer Engineering & Technology</p>
-        </div>
-
+<b>$</b> status
+open to learn and build</pre>
     </div>
 
-</div>
+</section>
 
-{% endblock %}
+<section class="section reveal">
+    <h2>Featured <span>works</span></h2>
+    <div class="grid-3">
+        <div class="card">
+            <h3>Area Calculators</h3>
+            <p>Circle, rectangle, and triangle area from your own inputs.</p>
+            <a href="/works">See calculators →</a>
+        </div>
+        <div class="card">
+            <h3>Linked List</h3>
+            <p>Append, prepend, delete, and search with a live visual list.</p>
+            <a href="/works/linkedlist">Try it →</a>
+        </div>
+        <div class="card">
+            <h3>Uppercase Converter</h3>
+            <p>Turn any text into uppercase instantly.</p>
+            <a href="/works/uppercase">Convert text →</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    const roles = ["Computer Engineering Student", "Networking Enthusiast", "Python and Flask Developer"];
+    const el = document.getElementById("typing");
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let r = 0, c = 0, del = false;
+
+    function tick() {
+        const word = roles[r];
+        el.textContent = word.slice(0, c);
+        if (!del && c === word.length) { del = true; return setTimeout(tick, 1600); }
+        if (del && c === 0) { del = false; r = (r + 1) % roles.length; }
+        c += del ? -1 : 1;
+        setTimeout(tick, del ? 35 : 75);
+    }
+    still ? el.textContent = roles[0] : tick();
+</script>
+
+{% endblock %}  

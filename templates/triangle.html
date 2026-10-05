@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 
 {% block title %}
-Circle Area
+Triangle Area
 {% endblock %}
 
 {% block content %}
 
 <div class="content-card">
 
-    <h1>AREA OF CIRCLE</h1>
+    <h1>AREA OF TRIANGLE</h1>
 
     <p class="system">System // Ready</p>
 
-    <form action="/works/area/circle" method="post">
+    <form action="/works/area/triangle" method="post">
 
-        <label for="radius">Enter the radius:</label>
+        <label for="base">Enter the base:</label>
         <br>
-        <input type="text" id="radius" name="radius" autocomplete="off">
+        <input type="text" id="base" name="base" autocomplete="off">
         <br>
 
+        <label for="height">Enter the height:</label>
+        <br>
+        <input type="text" id="height" name="height" autocomplete="off">
+        <br>
         <input type="submit" value="COMPUTE">
 
     </form>
@@ -28,7 +32,7 @@ Circle Area
     {% endif %}
 
     {% if result is not none %}
-        <p class="result">Area of the circle: {{ result|round(2) }}</p>
+        <p class="result">Area of the triangle: {{ result|round(2) }}</p>
     {% endif %}
 
     <br>

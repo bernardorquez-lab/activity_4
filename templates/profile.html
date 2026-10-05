@@ -6,56 +6,48 @@ Profile
 
 {% block content %}
 
-<div class="content-card">
-
-    <h1>MY PROFILE</h1>
-
-    <h2>About Me</h2>
-
+<div class="profile-head">
+    <p class="eyebrow">About me</p>
+    <h1 class="hero-title gradient-text" style="font-size: clamp(36px, 6vw, 56px);">Bernard Orquez</h1>
     <p>
-        Hello! I'm Bernard Orquez, a 2nd Year Computer Engineering
-        student interested in technology, programming, and computer
-        networking. I enjoy learning how computer systems communicate
-        and building simple applications using programming.
+        A 2nd Year Computer Engineering student interested in technology,
+        programming, and computer networking. I enjoy learning how computer
+        systems communicate and building simple applications with code.
     </p>
-
-    <hr>
-
-    <h2>Personal Information</h2>
-
-    <p><strong>Name:</strong> Bernard Orquez</p>
-    <p><strong>Course:</strong> Computer Engineering</p>
-    <p><strong>Year:</strong> 2nd Year</p>
-    <p><strong>Organization:</strong> CNCP Enterprise Networking Cadet</p>
-
-    <hr>
-
-    <h2>Skills & Interests</h2>
-
-    <ul>
-        <li>Python Programming</li>
-        <li>HTML & CSS</li>
-        <li>Flask</li>
-        <li>Computer Networking</li>
-        <li>Web Development</li>
-        <li>Computer Hardware</li>
-    </ul>
-
-    <hr>
-
-    <h2>My Goal</h2>
-
-    <p>
-        My goal is to strengthen my skills in computer engineering,
-        especially in networking and software development, while
-        gaining practical experience through projects and hands-on
-        learning.
-    </p>
-
-    <br>
-
-    <a href="/contact" class="work-button">Contact Me →</a>
-
 </div>
+
+<section class="section reveal">
+    <h2>Personal <span>information</span></h2>
+    <div class="info-grid">
+        <div><small>Name</small>Bernard Orquez</div>
+        <div><small>Course</small>Computer Engineering</div>
+        <div><small>Year</small>2nd Year</div>
+        <div><small>Organization</small>CNCP Enterprise Networking Cadet</div>
+    </div>
+</section>
+
+<section class="section reveal">
+    <h2>Skills and <span>interests</span></h2>
+    <div class="tags">
+        <span class="tag">Python Programming</span>
+        <span class="tag">HTML and CSS</span>
+        <span class="tag">Flask</span>
+        <span class="tag">Computer Networking</span>
+        <span class="tag">Web Development</span>
+        <span class="tag">Computer Hardware</span>
+    </div>
+</section>
+
+<section class="section reveal">
+    <div class="content-card">
+        <h2>My <span>goal</span></h2>
+        <p>
+            To strengthen my skills in computer engineering, especially in
+            networking and software development, while gaining practical
+            experience through projects and hands-on learning.
+        </p>
+        <a href="/contact" class="work-button btn-solid">Contact me</a>
+    </div>
+</section>
 
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+Linked List
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <h1>LINKED LIST</h1>
+
+    <p class="system">System // Ready</p>
+
+    <form action="/works/linkedlist" method="post">
+
+        <label for="value">Enter a value:</label>
+        <br>
+        <input type="text" id="value" name="value" autocomplete="off">
+        <br>
+
+        <input type="submit" name="action" value="APPEND">
+        <input type="submit" name="action" value="PREPEND">
+        <input type="submit" name="action" value="DELETE">
+        <input type="submit" name="action" value="SEARCH">
+        <input type="submit" name="action" value="CLEAR">
+
+    </form>
+
+    {% if message %}
+        <p class="result">{{ message }}</p>
+    {% endif %}
+
+    <h2>Current List</h2>
+
+    {% if items %}
+        <div class="list-view">
+            {% for item in items %}
+                <span class="node-chip">{{ item }}</span><span class="arrow">→</span>
+            {% endfor %}
+            <span class="node-chip">None</span>
+        </div>
+    {% else %}
+        <p>The list is empty. Append a value to start.</p>
+    {% endif %}
+
+    <br>
+    <a href="/works" class="work-button">← Back to Works</a>
+
+</div>
+
+{% endblock %}

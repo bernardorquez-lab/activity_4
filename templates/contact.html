@@ -6,112 +6,85 @@ Contact
 
 {% block content %}
 
-<div class="content-card">
+<div class="content-card reveal">
 
-    <h1>CONTACT ME</h1>
+    <h1 class="gradient-text">Let's connect</h1>
 
-    <p class="system">SYSTEM // ONLINE</p>
+    <span class="status"><i></i>Available for projects and opportunities</span>
 
-    <p>
-        You can reach me through any of the following platforms.
+    <p style="margin-top: 20px;">
+        Have a question, a project idea, or just want to talk about
+        networking and code? Pick whichever platform is easiest for you.
     </p>
 
-    <div class="contact-icons">
+    <div class="contact-grid">
 
-        <!-- GITHUB -->
-        <a href="https://github.com/bernardorquez-lab" target="_blank">
-            <img src="{{ url_for('static', filename='images/Github.png') }}"
-                 alt="GitHub">
-            <span>GitHub</span>
+        <a class="contact-card" href="https://github.com/bernardorquez-lab" target="_blank">
+            <div class="icon-tile">
+                <img src="{{ url_for('static', filename='images/Github.png') }}" alt="GitHub">
+            </div>
+            <strong>GitHub</strong>
+            <small>@bernardorquez-lab</small>
         </a>
 
-
-        <!-- FACEBOOK -->
-        <a href="https://www.facebook.com/bernard.orquez.5/" target="_blank">
-            <img src="{{ url_for('static', filename='images/Facebook.png') }}"
-                 alt="Facebook">
-            <span>Facebook</span>
+        <a class="contact-card" href="https://www.facebook.com/bernard.orquez.5/" target="_blank">
+            <div class="icon-tile">
+                <img src="{{ url_for('static', filename='images/Facebook.png') }}" alt="Facebook">
+            </div>
+            <strong>Facebook</strong>
+            <small>Send me a message</small>
         </a>
 
-
-        <!-- GMAIL -->
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bernardorquez@gmail.com"
-        target="_blank">
-            <img src="{{ url_for('static', filename='images/Gmail.jpg') }}"
-                alt="Gmail">
-            <span>Gmail</span>
+        <a class="contact-card"
+           href="https://mail.google.com/mail/?view=cm&fs=1&to=bernardorquez@gmail.com"
+           target="_blank">
+            <div class="icon-tile">
+                <img src="{{ url_for('static', filename='images/Gmail.jpg') }}" alt="Gmail">
+            </div>
+            <strong>Gmail</strong>
+            <small>Write me an email</small>
         </a>
 
+        <!-- Change the link and image file name to match yours -->
+        <a class="contact-card" href="https://www.linkedin.com/in/bernard-orquez-6b7609438" target="_blank">
+            <div class="icon-tile">
+                <img src="{{ url_for('static', filename='images/LinkedIn.png') }}" alt="LinkedIn">
+            </div>
+            <strong>LinkedIn</strong>
+            <small>Connect with me</small>
+        </a>
 
-        <!-- PHONE -->
-        <a href="tel:+639997981098">
-            <img src="{{ url_for('static', filename='images/Contact.jpg') }}"
-                alt="Contact Number">
-
-            <span>Contact Number</span>
-
+        <a class="contact-card" href="tel:+639997981098">
+            <div class="icon-tile">
+                <img src="{{ url_for('static', filename='images/Contact.jpg') }}" alt="Phone">
+            </div>
+            <strong>Call</strong>
             <small>+63 999 7981 098</small>
         </a>
 
     </div>
 
+    <div class="copy-row">
+        <button class="copy-btn" data-copy="bernardorquez@gmail.com">Copy email</button>
+        <button class="copy-btn" data-copy="+639997981098">Copy phone number</button>
+    </div>
+
 </div>
 
-<style>
-
-    .contact-icons {
-        display: flex;
-        justify-content: center;
-        gap: 25px;
-        margin-top: 35px;
-        flex-wrap: wrap;
-    }
-
-    .contact-icons a {
-        width: 130px;
-        padding: 15px;
-
-        text-align: center;
-        text-decoration: none;
-
-        color: cyan;
-
-        background: rgba(0, 10, 20, 0.8);
-
-        border: 1px solid rgba(0, 255, 255, 0.5);
-        border-radius: 12px;
-
-        transition: 0.3s;
-    }
-
-    .contact-icons a:hover {
-        transform: translateY(-8px);
-
-        border-color: cyan;
-
-        box-shadow:
-            0 0 10px cyan,
-            0 0 25px rgba(0, 255, 255, 0.4);
-    }
-
-    .contact-icons img {
-        width: 70px;
-        height: 70px;
-
-        object-fit: contain;
-
-        display: block;
-        margin: auto;
-        margin-bottom: 10px;
-
-        border-radius: 8px;
-    }
-
-    .contact-icons span {
-        font-weight: bold;
-        font-family: monospace;
-    }
-
-</style>
+<script>
+    document.querySelectorAll(".copy-btn").forEach(function(btn) {
+        const label = btn.textContent;
+        btn.addEventListener("click", function() {
+            navigator.clipboard.writeText(btn.dataset.copy).then(function() {
+                btn.textContent = "Copied!";
+                btn.classList.add("done");
+                setTimeout(function() {
+                    btn.textContent = label;
+                    btn.classList.remove("done");
+                }, 1500);
+            });
+        });
+    });
+</script>
 
 {% endblock %}
