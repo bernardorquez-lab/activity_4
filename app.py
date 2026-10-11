@@ -162,5 +162,77 @@ def linkedlist():
             message = f"'{value}' {'is' if found else 'is not'} in the list."
     return render_template('linkedlist.html', items=my_list.to_list(), message=message)
 
+def convert_to_postfix(expression):
+    priority = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    output = []
+    stack = []
+    tokens = re.findall(r'\d+(?:\.\d+)?|[A-Za-z]+|[()+\-*/^]', expression)
+
+    if ''.join(tokens) != re.sub(r'\s+', '', expression):
+        raise ValueError("Invalid expression.")
+
+    if not tokens:
+        raise ValueError("Please enter an expression.")
+
+    for token in tokens:
+        if token.isalnum() or token.replace('.', '', 1).isdigit():
+            output.append(token)
+
+        elif token == '(':
+            stack.append(token)
+
+        elif token == ')':
+            while stack and stack[-1] != '(':
+                output.append(stack.pop())
+
+            if not stack:
+                raise ValueError("Invalid parentheses.")
+
+            stack.pop()
+
+        elif token in priority:
+            while stack and stack[-1] in priority and (
+                priority[stack[-1]] > priority[token]
+                or (priority[stack[-1]] == priority[token] and token != '^')
+            ):
+                output.append(stack.pop())
+
+            stack.append(token)
+
+    if '(' in stack:
+        raise ValueError("Invalid parentheses.")
+
+    while stack:
+        output.append(stack.pop())
+
+    return ' '.join(output)
+
+
+@app.route('/works/infix-postfix', methods=['GET', 'POST'])
+def infix_postfix():
+    postfix = ""
+    expression = ""
+    error = ""
+
+    if request.method == 'POST':
+        expression = request.form.get('expression', '').strip()
+
+        if not expression:
+            error = "Please enter an expression."
+        else:
+            try:
+                postfix = convert_to_postfix(expression)
+            except ValueError as e:
+                error = str(e)
+
+    return render_template(
+        'infix_postfix.html',
+        expression=expression,
+        postfix=postfix,
+        error=error
+    )
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

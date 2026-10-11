@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Infix to Postfix
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+    <h1>INFIX TO POSTFIX</h1>
+    <p class="system">SYSTEM // CONVERSION TOOL</p>
+
+    <form method="POST">
+        <label for="expression">Infix Expression</label>
+
+        <input
+            type="text"
+            id="expression"
+            name="expression"
+            placeholder="Example: A+B*C"
+            value="{{ expression }}"
+            required
+        >
+
+        <button type="submit">Convert Expression →</button>
+    </form>
+
+    {% if postfix %}
+        <div class="result">
+            <h2>POSTFIX RESULT</h2>
+            <p>{{ postfix }}</p>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <a href="{{ url_for('works') }}" class="work-button">
+        ← Back to Works
+    </a>
+</div>
+
+{% endblock %}
