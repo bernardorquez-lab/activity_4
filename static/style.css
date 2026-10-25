@@ -511,4 +511,4 @@ footer a { color: cyan; text-decoration: none; }
     transition: 0.25s;
 }
 .copy-btn:hover { background: rgba(0, 255, 255, 0.12); border-style: solid; }
-.copy-btn.done { background: cyan; color: #02040a; }
+.copy-btn.done { background: cyan; color: #02040a; }    
