@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
+import re
 
 app = Flask(__name__)
 
@@ -140,6 +141,27 @@ class LinkedList:
 
 my_list = LinkedList()
 
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, data):
+        self.items.append(data)
+
+    def dequeue(self):
+        if self.is_empty():
+            return None
+        return self.items.pop(0)
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def to_list(self):
+        return self.items.copy()
+
+
+my_queue = Queue()
+
 @app.route('/works/linkedlist', methods=['GET', 'POST'])
 def linkedlist():
     message = None
@@ -233,6 +255,34 @@ def infix_postfix():
     )
 
 
+@app.route('/works/queue', methods=['GET', 'POST'])
+def queue():
+    message = None
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+        value = request.form.get('value', '').strip()
+
+        if action == 'ENQUEUE':
+            if not value:
+                message = "Please enter a value."
+            else:
+                my_queue.enqueue(value)
+                message = f"Added '{value}' to the queue."
+
+        elif action == 'DEQUEUE':
+            removed = my_queue.dequeue()
+
+            if removed is None:
+                message = "The queue is empty."
+            else:
+                message = f"Removed '{removed}' from the queue."
+
+    return render_template(
+        'queue.html',
+        items=my_queue.to_list(),
+        message=message
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
