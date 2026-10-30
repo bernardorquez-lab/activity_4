@@ -284,5 +284,120 @@ def queue():
         message=message
     )
 
+
+def bubble_sort(nums):
+    nums = nums.copy()
+
+    for i in range(len(nums)):
+        for j in range(len(nums) - i - 1):
+            if nums[j] > nums[j + 1]:
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+
+    return nums
+
+
+def selection_sort(nums):
+    nums = nums.copy()
+
+    for i in range(len(nums)):
+        small = i
+
+        for j in range(i + 1, len(nums)):
+            if nums[j] < nums[small]:
+                small = j
+
+        nums[i], nums[small] = nums[small], nums[i]
+
+    return nums
+
+
+def insertion_sort(nums):
+    nums = nums.copy()
+
+    for i in range(1, len(nums)):
+        current = nums[i]
+        j = i - 1
+
+        while j >= 0 and nums[j] > current:
+            nums[j + 1] = nums[j]
+            j -= 1
+
+        nums[j + 1] = current
+
+    return nums
+
+
+def merge_sort(nums):
+    if len(nums) <= 1:
+        return nums
+
+    middle = len(nums) // 2
+    left = merge_sort(nums[:middle])
+    right = merge_sort(nums[middle:])
+
+    result = []
+
+    while left and right:
+        if left[0] <= right[0]:
+            result.append(left.pop(0))
+        else:
+            result.append(right.pop(0))
+
+    return result + left + right
+
+
+def quick_sort(nums):
+    if len(nums) <= 1:
+        return nums
+
+    pivot = nums[-1]
+    left = [x for x in nums[:-1] if x <= pivot]
+    right = [x for x in nums[:-1] if x > pivot]
+
+    return quick_sort(left) + [pivot] + quick_sort(right)
+
+
+@app.route('/works/sorting', methods=['GET', 'POST'])
+def sorting():
+    numbers = ''
+    result = ''
+    algorithm = 'bubble'
+    error = ''
+
+    if request.method == 'POST':
+        numbers = request.form.get('numbers', '').strip()
+        algorithm = request.form.get('algorithm', 'bubble')
+
+        try:
+            nums = [int(x.strip()) for x in numbers.split(',')]
+
+            if not numbers:
+                raise ValueError
+
+            if algorithm == 'bubble':
+                result = bubble_sort(nums)
+            elif algorithm == 'selection':
+                result = selection_sort(nums)
+            elif algorithm == 'insertion':
+                result = insertion_sort(nums)
+            elif algorithm == 'merge':
+                result = merge_sort(nums)
+            elif algorithm == 'quick':
+                result = quick_sort(nums)
+            else:
+                raise ValueError
+
+        except ValueError:
+            error = "Please enter valid numbers separated by commas."
+
+    return render_template(
+        'sorting.html',
+        numbers=numbers,
+        result=result,
+        algorithm=algorithm,
+        error=error
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True)

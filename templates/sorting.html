@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Sorting Algorithms
+{% endblock %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <h1>SORTING ALGORITHMS</h1>
+
+    <p class="system">SYSTEM // SORTING TOOL</p>
+
+    <p>Enter numbers separated by commas and choose a sorting algorithm.</p>
+
+    <form method="POST">
+
+        <label for="numbers">Enter Numbers</label>
+
+        <input
+            type="text"
+            id="numbers"
+            name="numbers"
+            placeholder="Example: 5, 2, 8, 1, 9"
+            value="{{ numbers }}"
+            required
+        >
+
+        <label for="algorithm">Choose Sorting Algorithm</label>
+
+        <select id="algorithm" name="algorithm">
+            <option value="bubble" {% if algorithm == 'bubble' %}selected{% endif %}>Bubble Sort</option>
+            <option value="selection" {% if algorithm == 'selection' %}selected{% endif %}>Selection Sort</option>
+            <option value="insertion" {% if algorithm == 'insertion' %}selected{% endif %}>Insertion Sort</option>
+            <option value="merge" {% if algorithm == 'merge' %}selected{% endif %}>Merge Sort</option>
+            <option value="quick" {% if algorithm == 'quick' %}selected{% endif %}>Quick Sort</option>
+        </select>
+
+        <button type="submit">Sort Numbers →</button>
+
+    </form>
+
+    {% if result != '' %}
+        <div class="result">
+            <h2>SORTED RESULT</h2>
+            <p>{{ result | join(', ') }}</p>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <a href="{{ url_for('works') }}" class="work-button">
+        ← Back to Works
+    </a>
+
+</div>
+
+{% endblock %}
