@@ -399,5 +399,151 @@ def sorting():
     )
 
 
+
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, root, data):
+        if root is None:
+            return TreeNode(data)
+
+        if data < root.data:
+            root.left = self.insert(root.left, data)
+        elif data > root.data:
+            root.right = self.insert(root.right, data)
+
+        return root
+
+    def search(self, root, key):
+        if root is None or root.data == key:
+            return root
+
+        if key < root.data:
+            return self.search(root.left, key)
+
+        return self.search(root.right, key)
+
+    def post_traversal(self, start, traversal):
+        if start:
+            self.post_traversal(start.left, traversal)
+            self.post_traversal(start.right, traversal)
+            traversal.append(start.data)
+
+        return traversal
+
+    def delete_node(self, root, key):
+        if root is None:
+            return root
+
+        if key < root.data:
+            root.left = self.delete_node(root.left, key)
+
+        elif key > root.data:
+            root.right = self.delete_node(root.right, key)
+
+        else:
+            if root.left is None:
+                return root.right
+
+            elif root.right is None:
+                return root.left
+
+            temp = root.right
+
+            while temp.left:
+                temp = temp.left
+
+            root.data = temp.data
+            root.right = self.delete_node(root.right, temp.data)
+
+        return root
+
+def tree_to_dict(root):
+    if root is None:
+        return None
+
+    return {
+        'data': root.data,
+        'left': tree_to_dict(root.left),
+        'right': tree_to_dict(root.right)
+    }
+
+my_tree = BinaryTree()
+
+
+
+@app.route('/works/binary-tree', methods=['GET', 'POST'])
+def binary_tree():
+    message = None
+    searched = None
+    traversal = []
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+        value = request.form.get('value', '').strip()
+
+        if action == 'INSERT':
+            try:
+                number = int(value)
+
+                if my_tree.search(my_tree.root, number):
+                    message = f"{number} already exists."
+                else:
+                    my_tree.root = my_tree.insert(my_tree.root, number)
+                    message = f"{number} added to the Binary Tree."
+
+            except ValueError:
+                message = "Please enter a valid number."
+
+        elif action == 'SEARCH':
+            try:
+                number = int(value)
+                found = my_tree.search(my_tree.root, number)
+                searched = number
+
+                if found:
+                    message = f"{number} was found."
+                else:
+                    message = f"{number} was not found."
+
+            except ValueError:
+                message = "Please enter a valid number."
+
+        elif action == 'DELETE':
+            try:
+                number = int(value)
+                found = my_tree.search(my_tree.root, number)
+
+                if found:
+                    my_tree.root = my_tree.delete_node(my_tree.root, number)
+                    message = f"{number} was deleted."
+                else:
+                    message = f"{number} was not found."
+
+            except ValueError:
+                message = "Please enter a valid number."
+
+        elif action == 'TRAVERSE':
+            traversal = my_tree.post_traversal(my_tree.root, [])
+            message = "Postorder Traversal completed."
+
+    traversal = my_tree.post_traversal(my_tree.root, [])
+
+    return render_template(
+        'binary_tree.html',
+        traversal=traversal,
+        tree=tree_to_dict(my_tree.root),
+        message=message,
+        searched=searched
+    )
+
 if __name__ == "__main__":
     app.run(debug=True)

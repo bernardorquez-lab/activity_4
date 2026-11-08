@@ -1,0 +1,267 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Binary Tree
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .tree-container {
+        width: 100%;
+        overflow-x: auto;
+        padding: 35px 10px;
+        text-align: center;
+    }
+
+    .tree-container ul {
+        padding-top: 30px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .tree-container li {
+        list-style: none;
+        position: relative;
+        padding: 30px 10px 0;
+        text-align: center;
+    }
+
+    .tree-container li::before,
+    .tree-container li::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 50%;
+        width: 50%;
+        height: 30px;
+        border-top: 2px solid #00e5ff;
+    }
+
+    .tree-container li::after {
+        right: auto;
+        left: 50%;
+        border-left: 2px solid #00e5ff;
+    }
+
+    .tree-container li:only-child::before,
+    .tree-container li:only-child::after {
+        display: none;
+    }
+
+    .tree-container li:only-child {
+        padding-top: 0;
+    }
+
+    .tree-container li:first-child::before,
+    .tree-container li:last-child::after {
+        border: 0;
+    }
+
+    .tree-container li:last-child::before {
+        border-right: 2px solid #00e5ff;
+        border-radius: 0 8px 0 0;
+    }
+
+    .tree-container li:first-child::after {
+        border-radius: 8px 0 0 0;
+    }
+
+    .tree-container ul ul::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        height: 30px;
+        border-left: 2px solid #00e5ff;
+    }
+
+    .tree-node {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #062b38;
+        border: 2px solid #00e5ff;
+        color: #00e5ff;
+        font-weight: bold;
+        box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+        animation: nodeAppear 0.5s ease both;
+        transition: 0.3s;
+    }
+
+    .tree-node:hover {
+        transform: scale(1.15);
+        box-shadow: 0 0 20px #00e5ff;
+    }
+
+    .tree-node.searched {
+        background: #00e5ff;
+        color: #02040a;
+        box-shadow: 0 0 20px #00e5ff;
+        animation: searchPulse 1s infinite alternate;
+    }
+
+    @keyframes nodeAppear {
+        from {
+            opacity: 0;
+            transform: scale(0.2) translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes searchPulse {
+        from {
+            box-shadow: 0 0 5px #00e5ff;
+        }
+        to {
+            box-shadow: 0 0 25px #00e5ff;
+        }
+    }
+
+    .traversal-view {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin: 20px 0;
+    }
+
+    .traversal-chip {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #062b38;
+        border: 1px solid #00e5ff;
+        color: #00e5ff;
+        animation: nodeAppear 0.5s ease both;
+    }
+
+    .traversal-chip:nth-child(1) { animation-delay: 0.1s; }
+    .traversal-chip:nth-child(2) { animation-delay: 0.3s; }
+    .traversal-chip:nth-child(3) { animation-delay: 0.5s; }
+    .traversal-chip:nth-child(4) { animation-delay: 0.7s; }
+    .traversal-chip:nth-child(5) { animation-delay: 0.9s; }
+    .traversal-chip:nth-child(6) { animation-delay: 1.1s; }
+    .traversal-chip:nth-child(7) { animation-delay: 1.3s; }
+
+    .tree-empty {
+        padding: 30px;
+        color: #888;
+    }
+</style>
+
+<div class="content-card">
+
+    <h1>BINARY TREE</h1>
+
+    <p class="system">System // Ready</p>
+
+    <p>BST // Binary Search Tree</p>
+
+    <form action="/works/binary-tree" method="post">
+
+        <label for="value">Enter a number:</label>
+        <br>
+
+        <input
+            type="text"
+            id="value"
+            name="value"
+            autocomplete="off"
+        >
+        <br>
+
+        <input type="submit" name="action" value="INSERT">
+        <input type="submit" name="action" value="SEARCH">
+        <input type="submit" name="action" value="DELETE">
+
+        <br><br>
+
+        <button type="submit" name="action" value="TRAVERSE">
+            POSTORDER TRAVERSAL
+        </button>
+
+    </form>
+
+    {% if message %}
+        <p class="result">{{ message }}</p>
+    {% endif %}
+
+    <h2>Binary Tree Visualization</h2>
+
+    <p class="system">ROOT // LEFT // RIGHT</p>
+
+    {% macro draw_tree(node) %}
+        {% if node %}
+            <li>
+                <span class="tree-node {% if searched is not none and node.data == searched %}searched{% endif %}">
+                    {{ node.data }}
+                </span>
+
+                {% if node.left or node.right %}
+                    <ul>
+                        {% if node.left %}
+                            {{ draw_tree(node.left) }}
+                        {% else %}
+                            <li></li>
+                        {% endif %}
+
+                        {% if node.right %}
+                            {{ draw_tree(node.right) }}
+                        {% else %}
+                            <li></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endmacro %}
+
+    {% if tree %}
+        <div class="tree-container">
+            <ul>
+                {{ draw_tree(tree) }}
+            </ul>
+        </div>
+    {% else %}
+        <div class="tree-empty">
+            <p>The Binary Tree is empty.</p>
+            <p>Insert a number to start building your tree.</p>
+        </div>
+    {% endif %}
+
+    <h2>Postorder Traversal</h2>
+
+    {% if traversal %}
+        <div class="traversal-view">
+            {% for item in traversal %}
+                <span class="traversal-chip">{{ item }}</span>
+            {% endfor %}
+        </div>
+
+        <p class="system">LEFT → RIGHT → ROOT</p>
+    {% else %}
+        <p>No traversal available.</p>
+    {% endif %}
+
+    <br>
+
+    <a href="/works" class="work-button">← Back to Works</a>
+
+</div>
+
+{% endblock %}
